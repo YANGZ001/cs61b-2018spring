@@ -71,6 +71,6 @@ public class TestPlanetConstructor {
         checkEquals(p.xxVel, pCopy.xxVel, "xxVel");
         checkEquals(p.yyVel, pCopy.yyVel, "yyVel");
         checkEquals(p.mass, pCopy.mass, "mass");
-        checkStringEquals(p.imgFileName, pCopy.imgFileName, "path to image");
+        checkStringEquals(p.imgFileName, pCopy.imgFileName,"path to image");
     }
 }
