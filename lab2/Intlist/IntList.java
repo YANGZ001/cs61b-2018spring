@@ -51,11 +51,11 @@ public class IntList {
         if (L == null) {
             return null;
         }
-        IntList res = new IntList(L.first * L.first, null);
+        IntList res = new IntList(L.first * L.first, null);//res 一直在，没丢
         IntList ptr = res;
         L = L.rest;
         while (L != null) {
-            ptr.rest = new IntList(L.first * L.first, null);
+            ptr.rest = new IntList(L.first * L.first, null);//每遍历一层，都需要新建一个实例
             L = L.rest;
             ptr = ptr.rest;
         }
@@ -82,7 +82,15 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if (A == null){
+            return B;
+        }
+        IntList p = A;
+        while (p.rest != null){
+            p = p.rest;
+        }
+        p.rest = B;
+        return A;
     }
 
     /**
@@ -91,7 +99,11 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if (A == null){
+            return B;
+        } else {
+            return new IntList(A.first,catenate(A.rest, B));
+        }
     }
 
 
