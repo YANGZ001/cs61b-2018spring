@@ -1,39 +1,37 @@
-public class ArrayDeque<BleepBlorp, remove> {
+public class ArrayDeque<BleepBlorp> {
     private int size = 0;
     private int nextFirst = 3;
     private int nextLast = 4;
     private BleepBlorp[] sentinel;
 
-    public ArrayDeque(BleepBlorp item){
+    public ArrayDeque(BleepBlorp item) {
         sentinel = (BleepBlorp[]) new Object[8];
         sentinel[nextFirst] = item;
         nextFirst -= 1;
         size += 1;
     }
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         sentinel = (BleepBlorp[]) new Object[8];
     }
 
-    public boolean isEmpty(){
-        if (size == 0){
-            return true;
-        }else{
-            return false;
-        }
+    public boolean isEmpty() {
+//        if (size == 0) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return size == 0;
     }
 
-    public void addFirst(BleepBlorp item){
-//        if ( !isEmpty() && ( Math.abs(nextFirst - nextLast) == 1 || Math.abs(nextFirst - nextLast) == sentinel.length - 1)){
-//            resize(2);
-//        }
+    public void addFirst(BleepBlorp item) {
         sentinel[nextFirst] = item;
         size += 1;
         nextFirst -= 1;
         resize();
     }
 
-    public BleepBlorp removeFirst(){
+    public BleepBlorp removeFirst() {
         nextFirst += 1;
         BleepBlorp bb = sentinel[nextFirst];
         size -= 1;
@@ -41,14 +39,14 @@ public class ArrayDeque<BleepBlorp, remove> {
         return bb;
     }
 
-    public void addLast(BleepBlorp item){
+    public void addLast(BleepBlorp item) {
         sentinel[nextLast] = item;
         size += 1;
         nextLast += 1;
         resize();
     }
 
-    public BleepBlorp removeLast(){
+    public BleepBlorp removeLast() {
         nextLast -= 1;
         BleepBlorp bb = sentinel[nextLast];
         size -= 1;
@@ -56,24 +54,24 @@ public class ArrayDeque<BleepBlorp, remove> {
         return bb;
     }
 
-    public BleepBlorp get(int x){
+    public BleepBlorp get(int x) {
         return sentinel[x];
     }
 
-    public void printDeque(){
-        for (int i = nextFirst + 1; i < size; i++){
+    public void printDeque() {
+        for (int i = nextFirst + 1; i < size; i++) {
             System.out.print(sentinel[i] + " ");
         }
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
     public void resize() {
         if (nextFirst == -1 || nextLast == sentinel.length) {
             resize(2);
-        }else if (!isEmpty() && (nextLast < sentinel.length / 2) || (nextFirst > sentinel.length - 1)){
+        } else if (!isEmpty() && (nextLast < sentinel.length / 2) || (nextFirst > sentinel.length - 1)) {
             resize(0.5);
         }
         if (size >= 16) {
@@ -85,7 +83,7 @@ public class ArrayDeque<BleepBlorp, remove> {
         }
     }
 
-    public void resize(double factor){
+    public void resize(double factor) {
         BleepBlorp[] newArray = (BleepBlorp[]) new Object[(int) (sentinel.length * factor)];
         int newNextFirst = newArray.length / 2 - size / 2 - 1;
         int newNextLast = newArray.length / 2 + size / 2;
@@ -93,9 +91,5 @@ public class ArrayDeque<BleepBlorp, remove> {
         nextFirst = newNextFirst;
         nextLast = newNextLast;
         sentinel = newArray;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(2/8);
     }
 }
