@@ -1,11 +1,11 @@
-public class LinkedListDeque<BleepBlorp> {
-    public class IntNode {
+public class LinkedListDeque<T> {
+    private class IntNode {
         //circular loop
         private IntNode prev;
-        private BleepBlorp item;
+        private T item;
         private IntNode next;
 
-        public IntNode(BleepBlorp item) {
+        public IntNode(T item) {
             prev = null;
             this.item = item;
             next = null;
@@ -15,7 +15,7 @@ public class LinkedListDeque<BleepBlorp> {
             new IntNode(null);
         }
 
-        public void setItem(BleepBlorp item) {
+        public void setItem(T item) {
             this.item = item;
         }
 
@@ -42,30 +42,30 @@ public class LinkedListDeque<BleepBlorp> {
         sentinel.setPrev(sentinel);
     }
 
-    public LinkedListDeque(LinkedListDeque other) {
-        size = other.size;
-        sentinel = new IntNode(null);
-        sentinel.setPrev(sentinel);
-        sentinel.setNext(sentinel);
+//    public LinkedListDeque(LinkedListDeque other) {
+//        size = other.size;
+//        sentinel = new IntNode(null);
+//        sentinel.setPrev(sentinel);
+//        sentinel.setNext(sentinel);
+//
+//        IntNode prevOfOther = other.sentinel;
+//        IntNode prevOfLLD = sentinel;
+//
+//        for (int i = 0; i < size; i++) {
+//            IntNode currOfOther = prevOfOther.next;
+//            IntNode newIntNode = new IntNode(currOfOther.item);
+//
+//            newIntNode.setNext(sentinel);
+//            newIntNode.setPrev(prevOfLLD);
+//            prevOfLLD.setNext(newIntNode);
+//            sentinel.setPrev(newIntNode);
+//
+//            prevOfOther = currOfOther;
+//            prevOfLLD = newIntNode;
+//        }
+//    }
 
-        IntNode prevOfOther = other.sentinel;
-        IntNode prevOfLLD = sentinel;
-
-        for (int i = 0; i < size; i++) {
-            IntNode currOfOther = prevOfOther.next;
-            IntNode newIntNode = new IntNode(currOfOther.item);
-
-            newIntNode.setNext(sentinel);
-            newIntNode.setPrev(prevOfLLD);
-            prevOfLLD.setNext(newIntNode);
-            sentinel.setPrev(newIntNode);
-
-            prevOfOther = currOfOther;
-            prevOfLLD = newIntNode;
-        }
-    }
-
-    public void addFirst(BleepBlorp item) {
+    public void addFirst(T item) {
         IntNode newIntNode = new IntNode(item);
         IntNode firstIntNode = sentinel.next;
 
@@ -76,7 +76,7 @@ public class LinkedListDeque<BleepBlorp> {
         size += 1;
     }
 
-    public void addLast(BleepBlorp item) {
+    public void addLast(T item) {
         IntNode newIntNode = new IntNode(item);
         IntNode lastIntNode = sentinel.prev;
 
@@ -109,27 +109,33 @@ public class LinkedListDeque<BleepBlorp> {
         System.out.print("\n");
     }
 
-    public BleepBlorp removeFirst() {
+    public T removeFirst() {
         IntNode firstIntNode = sentinel.next;
         IntNode secondIntNode = sentinel.next.next;
 
         sentinel.setNext(secondIntNode);
         secondIntNode.setPrev(sentinel);
         size -= 1;
+        if (size < 0) {
+            size = 0;
+        }
         return firstIntNode.item;
     }
 
-    public BleepBlorp removeLast() {
+    public T removeLast() {
         IntNode lastIntNode = sentinel.prev;
         IntNode secondLastIntNode = sentinel.prev.prev;
 
         secondLastIntNode.setNext(sentinel);
         sentinel.setPrev(secondLastIntNode);
         size -= 1;
+        if (size < 0) {
+            size = 0;
+        }
         return lastIntNode.item;
     }
 
-    public BleepBlorp get(int index) {
+    public T get(int index) {
         if (index > size) {
             System.out.println("Ops!!!  Index out of size volume");
             return null;
@@ -143,7 +149,7 @@ public class LinkedListDeque<BleepBlorp> {
         }
     }
 
-    public BleepBlorp getRecursive(int index) {
+    public T getRecursive(int index) {
         if (this.size() - 1 == index) {
             return this.get(index);
         } else {
