@@ -88,7 +88,7 @@ public class LinkedListDeque<BleepBlorp>{
     }
 
     public boolean isEmpty(){
-        if (sentinel == null || sentinel.item == null){
+        if (sentinel == null || size == 0){
             return true;
         }else {
             return false;
@@ -114,6 +114,7 @@ public class LinkedListDeque<BleepBlorp>{
 
         sentinel.setNext(secondIntNode);
         secondIntNode.setPrev(sentinel);
+        size -= 1;
         return firstIntNode.item;
     }
 
@@ -123,6 +124,7 @@ public class LinkedListDeque<BleepBlorp>{
 
         secondLastIntNode.setNext(sentinel);
         sentinel.setPrev(secondLastIntNode);
+        size -= 1;
         return lastIntNode.item;
     }
 
