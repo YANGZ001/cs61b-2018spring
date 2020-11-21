@@ -1,20 +1,34 @@
 public class ArrayDeque<T> {
     private int size = 0;
     private int nextFirst = 0;
-    private int nextLast = 0;
+    private int nextLast = 1;
     private T[] sentinel;
-
-    public ArrayDeque(T item) {
-        sentinel = (T[]) new Object[8];
-        sentinel[nextFirst] = item;
-        nextFirstMinusOne();
-        size += 1;
-    }
 
     private void nextFirstMinusOne() {
         nextFirst -= 1;
         if (nextFirst < 0) {
             nextFirst = sentinel.length - 1;
+        }
+    }
+
+    private void nextLastMinusOne() {
+        nextLast -= 1;
+        if (nextLast < 0) {
+            nextLast = sentinel.length - 1;
+        }
+    }
+
+    private void nextFirstPlusOne() {
+        nextFirst += 1;
+        if (nextFirst == sentinel.length) {
+            nextFirst = 0;
+        }
+    }
+
+    private void nextLastPlusOne() {
+        nextLast += 1;
+        if (nextLast == sentinel.length) {
+            nextLast = 0;
         }
     }
 
@@ -34,30 +48,45 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        nextFirst += 1;
-        T bb = sentinel[nextFirst];
-        size -= 1;
-        resize();
-        return bb;
+        if (!isEmpty()) {
+            nextFirstPlusOne();
+            T bb = sentinel[nextFirst];
+            sentinel[nextFirst] = null;
+            size -= 1;
+            resize();
+            return bb;
+        } else {
+            return null;
+        }
     }
 
     public void addLast(T item) {
         sentinel[nextLast] = item;
         size += 1;
-        nextLast += 1;
+        nextLastPlusOne();
         resize();
     }
 
     public T removeLast() {
-        nextLast -= 1;
-        T bb = sentinel[nextLast];
-        size -= 1;
-        resize();
-        return bb;
+        if (!isEmpty()) {
+            nextLastMinusOne();
+            T bb = sentinel[nextLast];
+            sentinel[nextLast] = null;
+            size -= 1;
+            resize();
+            return bb;
+        } else {
+            return null;
+        }
     }
 
     public T get(int x) {
-        return sentinel[x];
+        int offset = x + nextFirst + 1;
+        if (offset < sentinel.length) {
+            return sentinel[offset];
+        } else {
+            return sentinel[offset - sentinel.length];
+        }
     }
 
     public void printDeque() {
@@ -78,7 +107,7 @@ public class ArrayDeque<T> {
     }
 
     private void resize() {
-        if (Math.abs(nextFirst - nextLast) == 1) {
+        if ((Math.abs(nextFirst - nextLast) == 1) && size != 0) {
             resize(2);
         }
         if (size >= 16) {
@@ -105,4 +134,32 @@ public class ArrayDeque<T> {
         nextFirst = newNextFirst;
         sentinel = newArray;
     }
+
+//    public static void main(String[] args) {
+//        ArrayDeque<String> arrayDeque = new ArrayDeque<>();
+//        arrayDeque.addFirst("ab");
+//        arrayDeque.addFirst("cd");
+//        arrayDeque.addFirst("cd");
+//        arrayDeque.addFirst("cd");
+//        arrayDeque.addFirst("cd");
+//        arrayDeque.addFirst("cd");
+//        arrayDeque.addFirst("cd");
+//        arrayDeque.addLast("fd");
+//        arrayDeque.addLast("fd0");
+//        arrayDeque.removeFirst();
+//        System.out.println(arrayDeque.get(1)); //2.0
+//        arrayDeque.printDeque();
+//        System.out.println(arrayDeque.size());
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        arrayDeque.removeFirst();
+//        System.out.println("is empty?" + arrayDeque.isEmpty());
+//        System.out.println("size?" + arrayDeque.size());
+//    }
 }

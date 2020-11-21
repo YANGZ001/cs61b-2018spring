@@ -1,17 +1,16 @@
 public class LinkedListDeque<T> {
     private class IntNode {
-        //circular loop
         private IntNode prev;
         private T item;
         private IntNode next;
 
-        public IntNode(T item) {
+        private IntNode(T item) {
             prev = null;
             this.item = item;
             next = null;
         }
 
-        public IntNode() {
+        private IntNode() {
             new IntNode(null);
         }
 
@@ -79,7 +78,6 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         IntNode newIntNode = new IntNode(item);
         IntNode lastIntNode = sentinel.prev;
-
         newIntNode.setPrev(lastIntNode);
         newIntNode.setNext(sentinel);
         lastIntNode.setNext(newIntNode);
