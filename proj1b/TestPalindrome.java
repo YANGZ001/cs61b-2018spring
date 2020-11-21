@@ -25,7 +25,7 @@ public class TestPalindrome {
         OffByN offBy5 = new OffByN(5);
         assertFalse(palindrome.isPalindrome("cat", offBy5));
         assertFalse(palindrome.isPalindrome("racecar", offBy5));
-        assertTrue(palindrome.isPalindrome("af", offBy5));//a b c d e f
+        assertTrue(palindrome.isPalindrome("af", offBy5));
 
         OffByN offBy2 = new OffByN(2);
         assertFalse(palindrome.isPalindrome("cat", offBy2));

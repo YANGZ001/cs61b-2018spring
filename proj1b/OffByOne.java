@@ -1,10 +1,10 @@
-public class OffByOne implements CharacterComparator{
+public class OffByOne implements CharacterComparator {
     @Override
     public boolean equalChars(char x, char y) {
         return Math.abs(x - y) == 1;
     }
 
-    public boolean isPalindrome(String word) {
+    private boolean isPalindrome(String word) {
         if (word == null) {
             return false;
         }

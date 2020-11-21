@@ -1,4 +1,4 @@
-public class OffByN implements CharacterComparator{
+public class OffByN implements CharacterComparator {
     private int off;
     @Override
     public boolean equalChars(char x, char y) {
@@ -9,7 +9,7 @@ public class OffByN implements CharacterComparator{
         off = N;
     }
 
-    public boolean isPalindrome(String word) {
+    private boolean isPalindrome(String word) {
         if (word == null) {
             return false;
         }
